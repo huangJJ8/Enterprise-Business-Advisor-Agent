@@ -27,6 +27,7 @@ import { StreamChunk } from './types/agent.types';
 import { UserInfo } from './types/agent.types';
 import { CacheManager } from 'src/modules/upload/services/cache-manager.service';
 import { AuthCheckerService } from './services/auth-checker.service';
+import { OutputSanitizer } from './output';
 
 /**
  * Agent 服务
@@ -198,11 +199,19 @@ export class AgentService implements OnModuleInit {
         let toolCallCount = 0;
         let hasRiskToolCall = false;
 
+        // 输出净化：把工具名 / 字段名等内部标识符确定性地换成业务术语。
+        // 提示词里那条 P0 规则靠模型自觉，这里做代码兜底。
+        // 注意：会话历史写入的是净化后的内容，避免模型看到自己上一轮的泄漏表述而被强化。
+        const outputSanitizer = new OutputSanitizer({ logger });
+
         // 熔断机制：同一工具重复调用检测
         const MAX_TOTAL_TOOL_CALLS = 15; // 单次查询最大工具调用总数
         const MAX_SAME_TOOL_CALLS = 3; // 同一工具最大连续/累计调用次数
         const toolCallCounter: Record<string, number> = {}; // 各工具调用计数
         let circuitBroken = false; // 熔断标志
+        // 熔断提示语。先记录、不在此处下发 —— 净化器里可能还扣着更早的正文，
+        // 直接 yield 会让提示语插到那截正文前面，顺序会乱。统一在循环结束后按序下发。
+        let circuitBreakNotice = '';
 
         // 收集工具调用链，用于保存完整历史
         const pendingToolCalls: ToolCallRecord[] = [];
@@ -259,7 +268,7 @@ export class AgentService implements OnModuleInit {
                       `熔断触发：工具调用总次数超过上限 ${MAX_TOTAL_TOOL_CALLS}，强制终止`,
                     );
                     circuitBroken = true;
-                    finalAnswer +=
+                    circuitBreakNotice =
                       '\n\n抱歉，当前查询处理步骤过多，请尝试简化您的问题或分步查询。';
                     break;
                   }
@@ -272,7 +281,7 @@ export class AgentService implements OnModuleInit {
                       `熔断触发：工具 ${toolCall.name} 已调用 ${toolCallCounter[toolCall.name]} 次，超过上限 ${MAX_SAME_TOOL_CALLS}，强制终止`,
                     );
                     circuitBroken = true;
-                    finalAnswer +=
+                    circuitBreakNotice =
                       '\n\n抱歉，当前查询遇到了问题，请稍后重试或换个方式提问。';
                     break;
                   }
@@ -307,17 +316,23 @@ export class AgentService implements OnModuleInit {
 
             // 如果有文本内容（流式输出每个 token chunk）
             if (aiMessage.content && typeof aiMessage.content === 'string') {
-              const content = aiMessage.content;
+              const rawContent = aiMessage.content;
 
-              // 累积最终答案
-              if (content) {
-                finalAnswer += content;
+              if (rawContent) {
+                // 输出净化：标识符可能在 chunk 边界被切断，
+                // 净化器内部有尾部缓冲，返回空串表示本段还在缓冲中，属正常情况。
+                const content = outputSanitizer.push(rawContent);
 
-                // 流式输出当前 chunk
-                yield {
-                  type: 'token',
-                  content: content,
-                };
+                if (content) {
+                  // 累积最终答案
+                  finalAnswer += content;
+
+                  // 流式输出当前 chunk
+                  yield {
+                    type: 'token',
+                    content: content,
+                  };
+                }
               }
             }
           }
@@ -365,8 +380,31 @@ export class AgentService implements OnModuleInit {
           }
         }
 
+        // 输出净化：冲刷尾部缓冲并补全未闭合标签。
+        // 必须放在 abort 判断之外 —— 净化器为防字段名被切断，始终扣留最后 holdback 个字符，
+        // 若在中止时跳过冲刷，这段已经生成好的内容会被静默丢弃（用户点「停止」时丢尾巴）。
+        const sanitizeTail = outputSanitizer.flush();
+
+        // 顺序保证：已生成正文（含缓冲尾巴）在前，熔断提示语在后。
+        const tailChunk = sanitizeTail + circuitBreakNotice;
+        if (tailChunk) {
+          yield {
+            type: 'token',
+            content: tailChunk,
+          };
+        }
+
+        const sanitizeReport = outputSanitizer.report();
+        if (sanitizeReport) {
+          logger.log(`输出净化：${sanitizeReport}`);
+        }
+
         // 只有在未被中止的情况下才更新会话历史
         if (!abortController.signal.aborted) {
+          if (tailChunk) {
+            finalAnswer += tailChunk;
+          }
+
           // 保存用户消息
           sessionManager.addUserMessage(contextId, query);
 
