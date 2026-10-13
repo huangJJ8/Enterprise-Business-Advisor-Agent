@@ -1,0 +1,92 @@
+# 服务配置
+server:
+  host: 'localhost'
+  port: 8025
+
+# redis配置
+redis:
+  # host: '127.0.0.1'
+  host: 'redis-pool.test.example.com'
+  port: 6379
+  password: 'YOUR_REDIS_PASSWORD'
+  db: 0
+
+# 向外发起的http请求配置
+http:
+  baseURL: ''
+  timeout: 60000
+
+# 日志打印配置
+winston:
+  level: 'debug'
+  dirname: 'logs'
+  filename: '%DATE%.log'
+  datePattern: 'YYYY-MM-DD'
+  maxSize: '10M'
+  maxFiles: '14d'
+
+agent:
+  # 后端服务 URL
+  SERVICE_URL: 'https://www-pre.example.com'
+  SAAS_CHECK_URL: 'http://prd.saas.aliyun.example.com'
+  MDS_SERVICE_URL: 'http://data.middle-test.example.com'
+  # Agent 对外公开访问地址（用于拼接 PDF 预览等绝对路径）
+  AGENT_PUBLIC_URL: '/institutionChannelAgent'
+  # 企业模糊搜索服务地址
+  DATA_SERVICE_URL: 'http://pre.service.aliyun.example.com/databusi'
+  # 企业上下游关系查询服务地址
+  RELATIONSHIP_SERVICE_URL: 'http://pre.gateway.aliyun.example.com/pubReport'
+
+  # Doubao LLM 配置
+  # AGENT_MODEL_NAME: 'Doubao-1.5-pro-32k'
+  # AGENT_MODEL_NAME: 'qwen3-max-2026-01-23'
+  # AGENT_API_KEY: 'sk-REPLACE_WITH_YOUR_API_KEY'
+  # AGENT_BASE_URL: 'https://api.302.ai/v1'
+  # AGENT_MODEL_NAME: 'qwen3-max-2026-01-23'
+  AGENT_MODEL_NAME: 'qwen3-max'
+  AGENT_API_KEY: 'sk-REPLACE_WITH_YOUR_API_KEY'
+  AGENT_BASE_URL: 'https://dashscope.aliyuncs.com/compatible-mode/v1'
+  AGENT_TEMPERATURE: 0.5
+  AGENT_MAX_TOKENS: 50000
+
+  # 知识库配置
+  AGENT_KB_ENABLED: false
+  AGENT_KB_TOP_K: 4
+
+  # 会话配置
+  AGENT_SESSION_MAX_AGE: 3600000
+
+  # 产品匹配白名单
+  AGENT_PRODUCT_MATCH_WHITELIST:
+    - 'ORG0000000000000000B'
+    - 'ORG0000000000000000A'
+
+  # 授权校验产品编码
+  PRODUCT_CODE: 'DataCheck_TC'
+
+# 上传模块配置
+upload:
+  # 临时文件目录
+  UPLOAD_TEMP_DIR: './tmp/uploads'
+  # 分片过期时间 (毫秒, 默认 1 小时)
+  CHUNK_EXPIRE_TIME: 3600000
+  # 缓存过期时间 (毫秒, 默认 30 分钟)
+  CACHE_EXPIRE_TIME: 1800000
+  # 阿里云百炼配置 (qwen-doc-turbo 文件上传和内容提取)
+  QWEN_LONG_API_KEY: 'sk-REPLACE_WITH_YOUR_API_KEY'
+  QWEN_LONG_BASE_URL: 'https://dashscope.aliyuncs.com/compatible-mode/v1'
+  QWEN_LONG_MODEL: 'qwen-long'
+
+# MySQL 数据库配置
+mysql:
+  host: 'localhost'
+  port: 3306
+  user: 'root'
+  password: 'root'
+  database: 'rpa_institution_channel'
+
+agent_test:
+  orgNo: 'ORG0000000000000000A'
+  orgChannelNo: 'OC000000000000000000'
+  orgChannelUserId: 15
+  session: 'session=YOUR_SESSION_COOKIE'

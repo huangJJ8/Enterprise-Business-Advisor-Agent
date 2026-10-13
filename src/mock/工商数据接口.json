@@ -1,0 +1,464 @@
+{
+    "success": true,
+    "returnCode": "200",
+    "returnMessage": "请求成功",
+    "data": {
+        "companyInfo": {
+            "corpName": "示例企业众和数据科技有限公司",
+            "name": "",
+            "regNo": "110108000000001",
+            "orgNo": "MA0DEMO001",
+            "creditNo": "91EFNLKPN7F18B2ETA",
+            "customsNo": "",
+            "province": "BJ",
+            "address": "",
+            "type": "有限责任公司（自然人投资或控股的法人独资）",
+            "startDate": "2019-03-12",
+            "checkDate": "2025-08-28",
+            "endDate": "",
+            "status": "存续（在营、开业、在册）",
+            "termStart": "2019-03-12",
+            "scope": "一般项目：人工智能应用软件开发；技术服务、技术开发、技术咨询、技术交流、技术转让、技术推广；软件开发；计算机系统服务；计算机软硬件及辅助设备批发；计算机软硬件及辅助设备零售；计算器设备销售；电子产品销售；业务培训（不含教育培训、职业技能培训等需取得许可的培训）；数据处理服务；信息咨询服务（不含许可类信息咨询服务）；信息技术咨询服务；税务服务；市场营销策划；市场调查（不含涉外调查）；组织文化艺术交流活动；经济贸易咨询；广告设计、代理；广告制作；广告发布；以自有资金从事投资活动（除依法须经批准的项目外，凭营业执照依法自主开展经营活动）",
+            "registCapi": "5000万元人民币",
+            "operName": "李明"
+        },
+        "employees": [
+            {
+                "employeeName": "张伟",
+                "employeeJob": "执行董事"
+            },
+            {
+                "employeeName": "张伟",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "监事"
+            },
+            {
+                "employeeName": "张伟",
+                "employeeJob": "总经理"
+            },
+            {
+                "employeeName": "张伟",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "张伟",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "总经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "经理"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "董事"
+            },
+            {
+                "employeeName": "李明",
+                "employeeJob": "执行公司事务的董事"
+            }
+        ],
+        "partners": [
+            {
+                "shouldCapis": [
+                    {
+                        "partnersShoudCapi": "5000万人民币",
+                        "partnersShoudInvestType": "货币",
+                        "partnersShouldCapiDate": "2040-03-31"
+                    }
+                ],
+                "realCapis": [],
+                "partnersName": "Acme 科技股份有限公司",
+                "partnersType": "企业法人",
+                "partnersIdentifyType": "企业法人营业执照（公司）",
+                "partnersIdentifyNo": "91KMB5HXNDT3502TMR"
+            }
+        ],
+        "branchs": [
+            {
+                "branchName": "示例企业众和数据科技有限公司北京分公司"
+            }
+        ],
+        "changeRecords": [
+            {
+                "changeItem": "投资人",
+                "changeDate": "2019-06-10",
+                "beforeContent": "1示例企业金信有限公司企业法人2示例企业云和科技中心（有限合伙）企业法人3示例企业I合伙企业（有限合伙）企业法人",
+                "afterContent": "1Acme 科技股份有限公司企业法人"
+            },
+            {
+                "changeItem": "企业类型",
+                "changeDate": "2019-06-10",
+                "beforeContent": "其他有限责任公司",
+                "afterContent": "有限责任公司（法人独资）"
+            },
+            {
+                "changeItem": "住所",
+                "changeDate": "2019-10-15",
+                "beforeContent": "北京市海淀区示例北路3号院12号楼4层101-3",
+                "afterContent": "北京市海淀区示例路81号一区1号楼13层1302-5室"
+            },
+            {
+                "changeItem": "注册资本",
+                "changeDate": "2020-05-25",
+                "beforeContent": "800万元",
+                "afterContent": "5000万元"
+            },
+            {
+                "changeItem": "企业类型",
+                "changeDate": "2019-06-10",
+                "beforeContent": "",
+                "afterContent": ""
+            },
+            {
+                "changeItem": "注册资本",
+                "changeDate": "2020-05-25",
+                "beforeContent": "800万",
+                "afterContent": "5000万"
+            },
+            {
+                "changeItem": "董事（理事）、经理、监事",
+                "changeDate": "2021-06-16",
+                "beforeContent": "吴景润，张伟*",
+                "afterContent": "张伟*，李明"
+            },
+            {
+                "changeItem": "投资人",
+                "changeDate": "2019-06-10",
+                "beforeContent": "示例企业金信有限公司，企业法人，示例企业云和科技中心（有限合伙），企业法人，示例企业I合伙企业（有限合伙），企业法人",
+                "afterContent": "Acme 科技股份有限公司，企业法人"
+            },
+            {
+                "changeItem": "企业名称",
+                "changeDate": "2021-12-02",
+                "beforeContent": "示例企业信用有限公司",
+                "afterContent": "示例企业智汇数据有限公司"
+            },
+            {
+                "changeItem": "经营范围",
+                "changeDate": "2021-12-02",
+                "beforeContent": "企业信用服务；应用软件服务；软件开发；计算机系统服务；数据处理（数据处理中的银行卡中心、PUE值在1.4以上的云计算数据中心除外）；技术开发。（市场主体依法自主选择经营项目，开展经营活动；依法须经批准的项目，经相关部门批准后依批准的内容开展经营活动；不得从事国家和本市产业政策禁止和限制类项目的经营活动。）",
+                "afterContent": "技术开发；企业信用服务；应用软件服务；软件开发；计算机系统服务；数据处理（数据处理中的银行卡中心、PUE值在1.4以上的云计算数据中心除外）。（市场主体依法自主选择经营项目，开展经营活动；依法须经批准的项目，经相关部门批准后依批准的内容开展经营活动；不得从事国家和本市产业政策禁止和限制类项目的经营活动。）"
+            },
+            {
+                "changeItem": "经营范围",
+                "changeDate": "2021-12-07",
+                "beforeContent": "技术开发；企业信用服务；应用软件服务；软件开发；计算机系统服务；数据处理（数据处理中的银行卡中心、PUE值在1.4以上的云计算数据中心除外）。（市场主体依法自主选择经营项目，开展经营活动；依法须经批准的项目，经相关部门批准后依批准的内容开展经营活动；不得从事国家和本市产业政策禁止和限制类项目的经营活动。）",
+                "afterContent": "技术开发；应用软件服务；软件开发；计算机系统服务；数据处理（数据处理中的银行卡中心、PUE值在1.4以上的云计算数据中心除外）。（市场主体依法自主选择经营项目，开展经营活动；依法须经批准的项目，经相关部门批准后依批准的内容开展经营活动；不得从事国家和本市产业政策禁止和限制类项目的经营活动。）"
+            },
+            {
+                "changeItem": "企业名称",
+                "changeDate": "2021-12-02",
+                "beforeContent": "示例企业智汇数据有限公司",
+                "afterContent": "示例企业智汇数据有限公司"
+            },
+            {
+                "changeItem": "投资人",
+                "changeDate": "2019-06-10",
+                "beforeContent": "Acme 科技股份有限公司，企业法人",
+                "afterContent": "Acme 科技股份有限公司，企业法人"
+            },
+            {
+                "changeItem": "投资人",
+                "changeDate": "2019-06-10",
+                "beforeContent": "1示例企业金信有限公司408企业法人;2示例企业云和科技中心（有限合伙）232企业法人;3示例企业I合伙企业（有限合伙）160企业法人",
+                "afterContent": "1Acme 科技股份有限公司800企业法人"
+            },
+            {
+                "changeItem": "注册资本",
+                "changeDate": "2020-05-25",
+                "beforeContent": "800",
+                "afterContent": "5000"
+            },
+            {
+                "changeItem": "名称变更（字号名称、集团名称等）",
+                "changeDate": "2025-01-09",
+                "beforeContent": "示例企业智汇数据有限公司",
+                "afterContent": "示例企业众和数据科技有限公司"
+            },
+            {
+                "changeItem": "经营范围变更（含业务范围变更）",
+                "changeDate": "2025-01-09",
+                "beforeContent": "技术开发；应用软件服务；软件开发；计算机系统服务；数据处理（数据处理中的银行卡中心、PUE值在1.4以上的云计算数据中心除外）。（市场主体依法自主选择选择经营项目，开展经营活动；依法须经批准的项目，经相关部门批准后依批准的内容开展经营活动；不得从事国家和本市产业政策禁止和限制类项目的经营活动）",
+                "afterContent": "一般项目：人工智能应用软件开发；软件开发；计算机系统服务；数据处理服务；技术服务、技术开发、技术咨询、技术交流、技术转让、技术推广；组织文化艺术交流活动；信息咨询服务（不含许可类信息咨询服务）（除依法须经批准的项目外，凭营业执照依法自主开展经营活动）"
+            },
+            {
+                "changeItem": "地址变更（住所地址、经营场所、驻在地址等变更）",
+                "changeDate": "2025-01-09",
+                "beforeContent": "北京市海淀区示例路81号一区1号楼13层1302-5室",
+                "afterContent": "无锡市新吴区示例大道 1-101"
+            },
+            {
+                "changeItem": "负责人变更（法定代表人、负责人、首席代表、合伙事务执行人等变更）",
+                "changeDate": "2025-01-22",
+                "beforeContent": "张伟",
+                "afterContent": "李明"
+            },
+            {
+                "changeItem": "经营范围变更（含业务范围变更）",
+                "changeDate": "2025-08-28",
+                "beforeContent": "一般项目：人工智能应用软件开发；软件开发；计算机系统服务；数据处理服务；技术服务、技术开发、技术咨询、技术交流、技术转让、技术推广；组织文化艺术交流活动；信息咨询服务（不含许可类信息咨询服务）（除依法须经批准的项目外，凭营业执照依法自主开展经营活动）",
+                "afterContent": "一般项目：人工智能应用软件开发；技术服务、技术开发、技术咨询、技术交流、技术转让、技术推广；软件开发；计算机系统服务；计算机软硬件及辅助设备批发；计算机软硬件及辅助设备零售；计算器设备销售；电子产品销售；业务培训（不含教育培训、职业技能培训等需取得许可的培训）；数据处理服务；信息咨询服务（不含许可类信息咨询服务）；信息技术咨询服务；税务服务；市场营销策划；市场调查（不含涉外调查）；组织文化艺术交流活动；经济贸易咨询；广告设计、代理；广告制作；广告发布；以自有资金从事投资活动（除依法须经批准的项目外，凭营业执照依法自主开展经营活动）"
+            }
+        ],
+        "abnormals": []
+    }
+}

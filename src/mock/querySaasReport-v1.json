@@ -1,0 +1,96 @@
+{
+  "success": true,
+  "data": {
+    "baseInfo": {
+      "creditLevel": "B",
+      "taxpayerType": "一般纳税人",
+      "year": "2024",
+      "registCapi": "5000",
+      "companyName": "示例企业众和数据科技有限公司",
+      "operName": "李明",
+      "registeredCapitalType": "人民币",
+      "changeData": "不存在",
+      "type": null,
+      "startDate": "2019-03-12"
+    },
+    "businessInformation": {
+      "preYearInvoiceSales": "12332.77",
+      "downstreamSuppliersConcentration": "一般",
+      "overallStrength": "较弱",
+      "productCompetitiveness": "较强",
+      "salesMarketStability": "比较稳定",
+      "supplyChainStability": "一般",
+      "countryIndustryRank": "100",
+      "upstreamSuppliersConcentration": "一般",
+      "industry": "科学研究和技术服务业",
+      "mainCustomersStrength": "很强",
+      "keySuppliersStability": "一般",
+      "longLending": null,
+      "companyFinancialTax": "良好",
+      "mainProductsStability": "平稳",
+      "invoiceTrends": "较好"
+    },
+    "overviewSummaryList": [
+      {
+        "riskLevel": "高风险",
+        "riskType": "税收风险",
+        "indicatorDesc": "所得税贡献率",
+        "riskIndicators": "所得税贡献率异常"
+      },
+      {
+        "riskLevel": "高风险",
+        "riskType": "税收风险",
+        "indicatorDesc": "净资产收益率",
+        "riskIndicators": "净资产收益率异常"
+      },
+      {
+        "riskLevel": "高风险",
+        "riskType": "税收风险",
+        "indicatorDesc": "存在一般纳税人增值税税负率异常情况",
+        "riskIndicators": "增值税税负异常"
+      },
+      {
+        "riskLevel": "高风险",
+        "riskType": "税收风险",
+        "indicatorDesc": "所得税负担率异常",
+        "riskIndicators": "所得税税负异常"
+      },
+      {
+        "riskLevel": "高风险",
+        "riskType": "税收风险",
+        "indicatorDesc": "期末留抵大于0",
+        "riskIndicators": "进项抵扣异常"
+      },
+      {
+        "riskLevel": "高风险",
+        "riskType": "经营风险",
+        "indicatorDesc": "近6个月第一大商品有效票金额环比增加/降低超20%",
+        "riskIndicators": "主营业务异常"
+      },
+      {
+        "riskLevel": "高风险",
+        "riskType": "经营风险",
+        "indicatorDesc": "L1-L12前30%有效票开票金额的总和占全部有效票开票金额总和的比率>0.9",
+        "riskIndicators": "交易金额集中"
+      },
+      {
+        "riskLevel": "中风险",
+        "riskType": "经营风险",
+        "indicatorDesc": "L1-L3有效开票天数环比下降",
+        "riskIndicators": "经营活跃度下降（近3月）"
+      },
+      {
+        "riskLevel": "中风险",
+        "riskType": "经营风险",
+        "indicatorDesc": "L1-L6第一大商品单价（商品大类）环比下降超10%",
+        "riskIndicators": "主营商品价值降低"
+      },
+      {
+        "riskLevel": "中风险",
+        "riskType": "经营风险",
+        "indicatorDesc": "L1-L12商品种类减少数量占比（商品大类）",
+        "riskIndicators": "商品销售种类减少"
+      }
+    ]
+  }
+}
