@@ -86,18 +86,151 @@ mysql:
 
 ## 架构
 
+### 系统架构
+
+```mermaid
+flowchart TB
+    Client["客户端<br/>Web / 移动端 EventSource"]
+
+    subgraph Access["接入层 · NestJS"]
+        MW["中间件<br/>AsyncContext · BodyParser · IronSession"]
+        Guard["守卫<br/>Login / Auth / RateLimit / Password"]
+        Ctrl["AgentController<br/>/agent/chat · /agent/chatTrue · SSE"]
+    end
+
+    subgraph Core["Agent 服务层"]
+        Svc["AgentService.processQuery<br/>会话历史 · 工具装配 · 熔断 · 流式净化"]
+    end
+
+    subgraph Graph["LangGraph 显式状态图"]
+        Model["model 节点<br/>系统提示 + 历史 → 模型"]
+        Tools["tools 节点<br/>并行执行 tool_calls"]
+    end
+
+    subgraph ToolLayer["工具层 · tools 目录"]
+        TA["业务查询<br/>订单 · 报告解读 · 采集进度/链接"]
+        TB["企业与风险<br/>工商信息 · 标签 · 核企 · 五维风险"]
+        TC["产品与营销<br/>信贷产品 · 营销机会 · Top20"]
+    end
+
+    Api["AgentApiService<br/>上游 API 封装"]
+
+    subgraph Infra["基础设施 · modules-global"]
+        RedisS["Redis<br/>会话 · 缓存"]
+        SSES["SSE 通道"]
+        LogS["Winston 日志"]
+        DBs["MySQL"]
+    end
+
+    subgraph Up["上游服务 · 占位配置"]
+        U1["serviceUrl"]
+        U2["dataServiceUrl"]
+        U3["relationshipServiceUrl"]
+    end
+
+    LLM["通义千问 Qwen<br/>DashScope 兼容接口"]
+
+    Client --> MW --> Guard --> Ctrl --> Svc
+    Svc --> Model
+    Model <--> Tools
+    Model -.->|HTTP| LLM
+    Tools --> TA & TB & TC
+    TA & TB & TC --> Api
+    Api --> U1 & U2 & U3
+    Ctrl -.-> SSES
+    Svc -.-> RedisS
+    Svc -.-> DBs
+    Svc -.-> LogS
+```
+
+### ReAct 循环（显式 LangGraph 图）
+
+对应 `graph/react-agent.ts` —— 不用 `createAgent()` 封装，而是用 `StateGraph` 手工搭建，
+`model` ⇄ `tools` 两个节点由条件边 `routeAfterModel` 驱动：
+
+```mermaid
+flowchart LR
+    START(["START"]) --> Model["model 节点<br/>SystemMessage + 历史消息 → 模型"]
+    Model --> Route{"routeAfterModel<br/>最后一条消息有 tool_calls ?"}
+    Route -->|"有 → tools"| ToolsN["tools 节点<br/>并行执行全部工具<br/>结果作为 ToolMessage 回填"]
+    ToolsN --> Model
+    Route -->|"无 → END"| ENDN(["END"])
+```
+
+单次查询的 ReAct 循环受 `recursionLimit: 30` 限制；`agent.service.ts` 另有熔断
+（单次查询工具调用总数 ≤ 15、同一工具 ≤ 3 次），防止模型陷入无限循环。
+
+### 一次请求的流式链路
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant C as 客户端
+    participant Ctrl as AgentController
+    participant Svc as AgentService
+    participant G as LangGraph
+    participant T as 工具层
+    participant API as 上游服务
+    participant San as OutputSanitizer
+
+    C->>Ctrl: POST /agent/chat (prompt · userInfo)
+    Ctrl->>Svc: processQuery(sessionId · prompt · userContext)
+    Svc->>Svc: 加载会话历史
+    Svc->>Svc: 装配工具 createAgentTools()
+    Svc->>G: agent.stream(messages)
+    loop ReAct 循环 · recursionLimit 30
+        G->>G: model 节点推理
+        G->>T: 调用 tool_calls
+        T->>API: 上游 API 请求
+        API-->>T: 返回数据
+        T-->>G: ToolMessage 回填
+    end
+    G-->>Svc: token 流 streamMode messages
+    Svc->>San: push(token)
+    San-->>Svc: 净化后的安全分片
+    Svc-->>Ctrl: yield type token
+    Ctrl-->>C: SSE data 分片
+    Svc->>San: flush() 冲刷尾部缓冲
+    Svc->>Svc: 写回会话历史 / 统计
+    Svc-->>Ctrl: 流结束
+    Ctrl-->>C: done
+```
+
+> 净化器内部的尾部缓冲会扣留末尾若干字符（防标识符被 chunk 边界切断），因此
+> `push()` 可能返回空串；`flush()` 在流结束时冲刷剩余内容并补全未闭合标签。
+> 「停止生成」时 `flush()` 仍会执行，避免丢尾巴。
+
 ### 核心 Agent 模块 `src/modules/agent/`
 
 | 文件 | 职责 |
 | --- | --- |
-| `graph/react-agent.ts` | 使用 LangGraph 组装 Agent（系统提示词 + 工具集） |
-| `graph/state.ts` | Agent 状态机定义 |
+| `graph/react-agent.ts` | 用 LangGraph `StateGraph` 显式搭建 ReAct 循环（`model` ⇄ `tools` 节点 + 条件边） |
+| `graph/state.ts` | 图状态（State）定义：`messages` 追加式 reducer + `userContext` |
 | `prompts/system-prompt.ts` | LLM 系统提示词 |
+| `output/output-sanitizer.ts` | 输出净化：工具名/字段名 → 业务术语、标签闭合修复，流式安全（见下） |
+| `output/glossary.ts` | 输出净化术语词典（工具名、字段名、需配对的标签白名单） |
 | `tools/index.ts` | 工具工厂，聚合全部可用工具 |
 | `tools/*.tool.ts` | 各业务工具（订单查询、报告解读、采集进度/链接、企业核验、产品匹配、营销机会、企微关注等） |
 | `session/session.manager.ts` | 多轮会话管理 |
 | `api.service.ts` | 上游服务 API 封装 |
 | `config/agent.config.ts` | Agent 配置（模型、温度、Token、知识库） |
+
+### 输出净化 `src/modules/agent/output/`
+
+系统提示词里的 P0 规则（禁止暴露字段名、标签必须闭合）原本只靠模型自觉遵守，
+这里用确定性代码做兜底，把"希望模型别这么写"变成"模型写了也会被改掉"：
+
+- **术语替换**：工具名 / 字段名 → 中文业务术语（词表见 `glossary.ts`，27 个工具名 + 145 个字段名 + 7 个内部协议词）
+- **标签闭合修复**：`<go />` → `<go></go>`，流结束时补全未闭合标签
+- **话术清理**：删除"数据来源：X""根据X工具返回的数据，"这类技术表述
+
+净化器是**流式安全**的。模型逐 token 输出时，`taxCreditRating` 可能被切成
+`taxCred` + `itRating`，`</line>` 可能被切成 `</li` + `ne>`；一旦被切开，词典匹配和标签配对
+都会失效。因此内部维护尾部缓冲，`push()` 只放行到安全切分点为止（标签边界 / 标识符边界 /
+话术锚点三重回退），`flush()` 冲刷剩余内容。
+
+`<...>` 标签内部（含属性）不参与净化，所以 `<g3 corpname="..." creditno="...">` 这类前端渲染
+必需的协议属性、以及 `qrcode` / `report-card` / `generatereport` 等应原样输出的标签都不会被改动。
 
 ### 全局模块 `src/modules-global/`
 
@@ -118,7 +251,7 @@ src/
 ├── guards/  interceptor/  middleware/  decorator/
 ├── modules/
 │   ├── agent/              # ReAct Agent 核心
-│   │   ├── graph/  prompts/  session/  tools/
+│   │   ├── graph/  prompts/  session/  tools/  output/
 │   │   ├── services/       # 鉴权、报告格式化、文件上传等
 │   │   └── static/         # 示例报告数据（已虚构化）
 │   ├── ai/  upload/  yzm/
