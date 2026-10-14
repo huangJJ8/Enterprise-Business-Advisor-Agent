@@ -1,10 +1,19 @@
 # NestJS 11 + TypeScript 企业业务顾问智能体（ReAct Agent）
 
+**中文** | [English](README.en.md)
+
 基于 **LangGraph / LangChain** 的 ReAct（Reasoning + Acting）智能体后端服务。Agent 自主理解用户意图、
 动态选择并组合工具，无需预定义意图分类，通过 SSE 流式输出推理与工具调用过程。
 
 > 本仓库为**脱敏后的公开版本**：所有公司标识、内部域名、密钥、机构号以及示例数据中的企业与个人信息
 > 均已替换为中性占位符或虚构数据。默认配置无法连接任何真实后端，仅用于代码阅读与本地演示。
+
+## 文档
+
+| 文档 | 内容 |
+| --- | --- |
+| `README.md`（本文） | 项目总览、系统架构、API、目录结构、快速开始 |
+| [`REACT_AGENT_README.md`](REACT_AGENT_README.md) | ReAct Agent 设计详解：节点拆分、工具编写、调试方法，以及与旧「18 种预定义意图」工作流实现的对比 |
 
 ## 特性
 
@@ -147,6 +156,9 @@ flowchart TB
 
 对应 `graph/react-agent.ts` —— 不用 `createAgent()` 封装，而是用 `StateGraph` 手工搭建，
 `model` ⇄ `tools` 两个节点由条件边 `routeAfterModel` 驱动：
+
+> 📄 完整的 ReAct 设计说明（节点拆分、工具编写、调试方法，以及与旧「18 种预定义意图」工作流的对比）
+> 见 **[REACT_AGENT_README.md](REACT_AGENT_README.md)**。
 
 ```mermaid
 flowchart LR
